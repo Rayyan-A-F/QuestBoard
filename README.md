@@ -48,7 +48,7 @@ There is not yet a test runner or test script.
 
 ## Next
 
-Finish verifying the task workflow and empty state, then continue with project
-organization and navigation. Later milestones include Supabase data and
+Next, add project organization and navigation, starting with a way to view and
+filter tasks by project. Later milestones include Supabase data and
 authentication, accessibility and focused tests, and deployment to a
 non-Vercel host.
