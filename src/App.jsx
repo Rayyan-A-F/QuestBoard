@@ -13,7 +13,7 @@ const tasks = [
     id: 2,
     title: "Sketch the dashboard",
     dueDate: "2026-10-28",
-    project: "Questboard",
+    project: "Website Redesign",
     status: "To do",
   },
 ];
