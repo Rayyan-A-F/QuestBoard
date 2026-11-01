@@ -48,8 +48,10 @@ There is not yet a test runner or test script.
 
 ## Next
 
-Next, add a project selector and filter tasks by project. This lesson will
-practice React-derived data and responsive Tailwind CSS Grid. The local
+The sample data now includes two projects, and the controlled project selector
+is in progress. Next, derive the visible task list from the selected project,
+then progressively enhance the native select with custom CSS and responsive
+Tailwind Grid. The local
 `QUESTBOARD.md` tracks the learner-led React and Tailwind lesson sequence.
 Later milestones include Supabase data and authentication, accessibility and
 focused tests, and deployment to a non-Vercel host.

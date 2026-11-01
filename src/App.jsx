@@ -23,7 +23,9 @@ function App() {
   const [newTitle, setNewTitle] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
   const [formError, setFormError] = useState("");
+  const [selectedProject, setSelectedProject] = useState("All projects");
   const completedCount = taskList.filter((task) => task.status === "Completed").length;
+  const projectNames = [...new Set(taskList.map((task) => task.project))];
 
   function handleAddTask(event) {
     event.preventDefault();
@@ -172,6 +174,25 @@ function App() {
                 Your tasks
               </h2>
               <p className="mt-1 text-sm text-slate-600">A little progress adds up.</p>
+            </div>
+            <div className="grid gap-1">
+              <label htmlFor="project-filter" className="text-sm font-medium text-slate-700">
+                Filter by project
+              </label>
+              <select
+                id="project-filter"
+                name="project"
+                value={selectedProject}
+                onChange={(event) => setSelectedProject(event.target.value)}
+                className="project-select rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:border-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                <option value="All projects">All projects</option>
+                {projectNames.map((projectName) => (
+                  <option key={projectName} value={projectName}>
+                    {projectName}
+                  </option>
+                ))}
+              </select>
             </div>
             <p className="text-sm font-medium text-slate-500">
               {taskList.length} {taskList.length === 1 ? "task" : "tasks"}

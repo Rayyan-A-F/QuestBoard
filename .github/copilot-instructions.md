@@ -57,6 +57,8 @@ than introducing folders or abstractions before they are needed.
   pair-programming rather than having lessons implemented wholesale.
 - Keep secrets in ignored environment files. `.env.example` is allowed to be
   tracked; never put actual credentials in source or examples.
+- Keep the local VS Code MCP server configuration at `.vscode/.mcp.json`;
+  this machine-specific configuration is ignored by Git.
 - Consult the local `QUESTBOARD.md` project guide for the current lesson,
   learning preferences, milestones, architecture decisions, and dependency
   status. Update it after milestones are implemented and verified.
