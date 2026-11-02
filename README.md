@@ -11,6 +11,7 @@ project. It helps organize tasks and track progress.
 - Remove tasks and see an empty-state message when none remain.
 - See total and completed task counts.
 - Validate blank task titles with accessible inline feedback.
+- Filter tasks by project with a controlled selector.
 
 Tasks currently live in React state, so changes are temporary and reset when
 the page reloads. Supabase persistence and accounts are planned, not connected.
@@ -48,10 +49,11 @@ There is not yet a test runner or test script.
 
 ## Next
 
-The sample data now includes two projects, and the controlled project selector
-is in progress. Next, derive the visible task list from the selected project,
-then progressively enhance the native select with custom CSS and responsive
-Tailwind Grid. The local
+The sample data includes two projects, and the controlled selector filters
+tasks by project. The selector has a custom closed-control style and visible
+keyboard focus ring; next, progressively enhance its option picker where
+supported. Then add task descriptions and project assignment to task creation.
+The local
 `QUESTBOARD.md` tracks the learner-led React and Tailwind lesson sequence.
 Later milestones include Supabase data and authentication, accessibility and
 focused tests, and deployment to a non-Vercel host.

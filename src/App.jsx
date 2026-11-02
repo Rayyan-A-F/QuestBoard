@@ -26,6 +26,10 @@ function App() {
   const [selectedProject, setSelectedProject] = useState("All projects");
   const completedCount = taskList.filter((task) => task.status === "Completed").length;
   const projectNames = [...new Set(taskList.map((task) => task.project))];
+  const visibleTasks =
+    selectedProject === "All projects"
+      ? taskList
+      : taskList.filter((task) => task.project === selectedProject);
 
   function handleAddTask(event) {
     event.preventDefault();
@@ -184,7 +188,7 @@ function App() {
                 name="project"
                 value={selectedProject}
                 onChange={(event) => setSelectedProject(event.target.value)}
-                className="project-select rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 shadow-sm transition hover:border-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="project-select w-full sm:w-auto"
               >
                 <option value="All projects">All projects</option>
                 {projectNames.map((projectName) => (
@@ -195,12 +199,12 @@ function App() {
               </select>
             </div>
             <p className="text-sm font-medium text-slate-500">
-              {taskList.length} {taskList.length === 1 ? "task" : "tasks"}
+              {visibleTasks.length} {visibleTasks.length === 1 ? "task" : "tasks"}
             </p>
           </div>
-          {taskList.length > 0 ? (
+          {visibleTasks.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">
-              {taskList.map((task) => {
+              {visibleTasks.map((task) => {
                 const statusStyles = {
                   "To do": "bg-slate-100 text-slate-700",
                   "In progress": "bg-indigo-50 text-indigo-700",
