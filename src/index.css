@@ -40,3 +40,46 @@ body {
   outline-offset: 3px;
   box-shadow: 0 0 0 6px #e0e7ff;
 }
+
+@supports (appearance: base-select) {
+  .project-select,
+  .project-select::picker(select) {
+    appearance: base-select;
+  }
+
+  .project-select {
+    background-image: none;
+  }
+
+  .project-select::picker(select) {
+    margin-block-start: 0.5rem;
+    overflow: clip;
+    border: 1px solid #cbd5e1;
+    border-radius: 0.75rem;
+    background: white;
+    box-shadow: 0 8px 20px rgb(15 23 42 / 12%);
+  }
+
+  .project-select option {
+    padding: 0.625rem 1rem;
+    color: #1e293b;
+  }
+
+  .project-select option:checked {
+    background: #eef2ff;
+    color: #3730a3;
+  }
+
+  .project-select option::checkmark {
+    color: #4f46e5;
+  }
+
+  .project-select::picker-icon {
+    color: #64748b;
+    transition: transform 150ms ease;
+  }
+
+  .project-select:open::picker-icon {
+    transform: rotate(180deg);
+  }
+}

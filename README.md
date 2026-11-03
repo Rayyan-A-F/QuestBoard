@@ -12,6 +12,8 @@ project. It helps organize tasks and track progress.
 - See total and completed task counts.
 - Validate blank task titles with accessible inline feedback.
 - Filter tasks by project with a controlled selector.
+- Customize the native project selector and its option picker in supported
+  browsers, with a fallback for other browsers.
 
 Tasks currently live in React state, so changes are temporary and reset when
 the page reloads. Supabase persistence and accounts are planned, not connected.
@@ -50,9 +52,10 @@ There is not yet a test runner or test script.
 ## Next
 
 The sample data includes two projects, and the controlled selector filters
-tasks by project. The selector has a custom closed-control style and visible
-keyboard focus ring; next, progressively enhance its option picker where
-supported. Then add task descriptions and project assignment to task creation.
+tasks by project. Its closed control, keyboard focus ring, popup, and selected
+option are styled, with customizable-select styling progressively enhanced
+where supported. Next, finish the picker interaction and responsive task-list
+layout, then add task descriptions and project assignment to task creation.
 The local
 `QUESTBOARD.md` tracks the learner-led React and Tailwind lesson sequence.
 Later milestones include Supabase data and authentication, accessibility and

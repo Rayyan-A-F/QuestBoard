@@ -172,35 +172,38 @@ function App() {
         </section>
 
         <section aria-labelledby="tasks-heading" className="mt-12" id="tasks">
-          <div className="mb-5 flex items-end justify-between gap-4">
+          <div className="mb-5 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
             <div>
               <h2 className="text-xl font-bold tracking-tight" id="tasks-heading">
                 Your tasks
               </h2>
               <p className="mt-1 text-sm text-slate-600">A little progress adds up.</p>
             </div>
-            <div className="grid gap-1">
-              <label htmlFor="project-filter" className="text-sm font-medium text-slate-700">
-                Filter by project
-              </label>
-              <select
-                id="project-filter"
-                name="project"
-                value={selectedProject}
-                onChange={(event) => setSelectedProject(event.target.value)}
-                className="project-select w-full sm:w-auto"
-              >
-                <option value="All projects">All projects</option>
-                {projectNames.map((projectName) => (
-                  <option key={projectName} value={projectName}>
-                    {projectName}
-                  </option>
-                ))}
-              </select>
+
+            <div className="flex flex-wrap items-end gap-3 sm:justify-end">
+              <div className="grid gap-1">
+                <label htmlFor="project-filter" className="text-sm font-medium text-slate-700">
+                  Filter by project
+                </label>
+                <select
+                  id="project-filter"
+                  name="project"
+                  value={selectedProject}
+                  onChange={(event) => setSelectedProject(event.target.value)}
+                  className="project-select w-full sm:w-auto"
+                >
+                  <option value="All projects">All projects</option>
+                  {projectNames.map((projectName) => (
+                    <option key={projectName} value={projectName}>
+                      {projectName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-sm font-medium text-slate-500">
+                {visibleTasks.length} {visibleTasks.length === 1 ? "task" : "tasks"}
+              </p>
             </div>
-            <p className="text-sm font-medium text-slate-500">
-              {visibleTasks.length} {visibleTasks.length === 1 ? "task" : "tasks"}
-            </p>
           </div>
           {visibleTasks.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">

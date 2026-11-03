@@ -65,10 +65,11 @@ than introducing folders or abstractions before they are needed.
 - `QUESTBOARD.md` is intentionally ignored and serves as a local-only project
   and milestone tracker. Do not add it to commits unless explicitly requested.
 - After each implementation step is complete and its applicable checks pass,
-  update `README.md` to reflect the current app and next planned work, then
-  commit and push the successful step to `origin` before starting another.
-  Keep local-only `QUESTBOARD.md`, `.env` files, and other ignored files out of
-  commits. If publishing is blocked, report the exact blocker instead of
-  implying the changes were pushed.
+  update `README.md` to reflect the current app and next planned work. Tell the
+  learner when the step is ready to commit and suggest a concise Conventional
+  Commit-style message (for example, `style: customize project filter`). The
+  learner creates commits and pushes; do not commit or push unless explicitly
+  asked. Keep local-only `QUESTBOARD.md`, `.env` files, and other ignored files
+  out of commits.
 - Do not introduce Vercel products. Supabase is the planned backend; add its
   client and configuration only when the app reaches data integration.
