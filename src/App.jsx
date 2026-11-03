@@ -1,10 +1,13 @@
-import { Temporal } from "@js-temporal/polyfill";
 import { useState } from "react";
+import TaskForm from "./components/TaskForm";
+import TaskList from "./components/TaskList";
 
 const tasks = [
   {
     id: 1,
     title: "Outline the project roadmap",
+    description:
+      "Create a detailed roadmap for the Questboard project, including milestones and deadlines.",
     dueDate: "2026-10-24",
     project: "Questboard",
     status: "In progress",
@@ -12,6 +15,8 @@ const tasks = [
   {
     id: 2,
     title: "Sketch the dashboard",
+    description:
+      "Design the initial sketches for the Questboard dashboard, focusing on user experience and layout.",
     dueDate: "2026-10-28",
     project: "Website Redesign",
     status: "To do",
@@ -20,9 +25,6 @@ const tasks = [
 
 function App() {
   const [taskList, setTaskList] = useState(tasks);
-  const [newTitle, setNewTitle] = useState("");
-  const [newDueDate, setNewDueDate] = useState("");
-  const [formError, setFormError] = useState("");
   const [selectedProject, setSelectedProject] = useState("All projects");
   const completedCount = taskList.filter((task) => task.status === "Completed").length;
   const projectNames = [...new Set(taskList.map((task) => task.project))];
@@ -31,30 +33,20 @@ function App() {
       ? taskList
       : taskList.filter((task) => task.project === selectedProject);
 
-  function handleAddTask(event) {
-    event.preventDefault();
-    const trimmedTitle = newTitle.trim();
-    if (!trimmedTitle) {
-      setFormError("Task title cannot be empty.");
-      return;
-    }
-
-    setFormError("");
-
+  function handleAddTask({ title, dueDate }) {
     const newTask = {
       id: crypto.randomUUID(),
-      title: trimmedTitle,
-      dueDate: newDueDate,
+      title,
+      description: "",
+      dueDate,
       project: "Questboard",
       status: "To do",
     };
 
     setTaskList((prevTasks) => [...prevTasks, newTask]);
-    setNewTitle("");
-    setNewDueDate("");
   }
 
-  const toggleStatus = (id) => {
+  function toggleStatus(id) {
     setTaskList((prevTasks) =>
       prevTasks.map((task) => {
         if (task.id !== id) return task;
@@ -71,7 +63,7 @@ function App() {
         return { ...task, status: nextStatus };
       }),
     );
-  };
+  }
 
   function removeTask(id) {
     setTaskList((prevTasks) => prevTasks.filter((task) => task.id !== id));
@@ -117,159 +109,15 @@ function App() {
           </article>
         </section>
 
-        <section className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-          <form
-            onSubmit={handleAddTask}
-            className="grid w-full max-w-xl gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6"
-          >
-            <div className="grid gap-1.5">
-              <label htmlFor="new-task-title" className="text-sm font-medium text-slate-700">
-                Task title:
-              </label>
-              <input
-                aria-invalid={Boolean(formError)}
-                aria-describedby={formError ? "task-title-error" : undefined}
-                type="text"
-                id="new-task-title"
-                value={newTitle}
-                onChange={(event) => {
-                  setNewTitle(event.target.value);
-                  if (event.target.value.trim()) {
-                    setFormError("");
-                  }
-                }}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100"
-                required
-              />
-              {formError && (
-                <p id="task-title-error" className="text-sm text-red-600" role="alert">
-                  {formError}
-                </p>
-              )}
-            </div>
-
-            <div className="grid gap-1.5">
-              <label htmlFor="new-task-date" className="text-sm font-medium text-slate-700">
-                Due date:
-              </label>
-              <input
-                type="date"
-                id="new-task-date"
-                value={newDueDate}
-                onChange={(event) => setNewDueDate(event.target.value)}
-                className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="rounded-lg bg-indigo-600 px-4 py-2 font-semibold text-white transition hover:bg-indigo-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Add task
-            </button>
-          </form>
-        </section>
-
-        <section aria-labelledby="tasks-heading" className="mt-12" id="tasks">
-          <div className="mb-5 grid gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-            <div>
-              <h2 className="text-xl font-bold tracking-tight" id="tasks-heading">
-                Your tasks
-              </h2>
-              <p className="mt-1 text-sm text-slate-600">A little progress adds up.</p>
-            </div>
-
-            <div className="flex flex-wrap items-end gap-3 sm:justify-end">
-              <div className="grid gap-1">
-                <label htmlFor="project-filter" className="text-sm font-medium text-slate-700">
-                  Filter by project
-                </label>
-                <select
-                  id="project-filter"
-                  name="project"
-                  value={selectedProject}
-                  onChange={(event) => setSelectedProject(event.target.value)}
-                  className="project-select w-full sm:w-auto"
-                >
-                  <option value="All projects">All projects</option>
-                  {projectNames.map((projectName) => (
-                    <option key={projectName} value={projectName}>
-                      {projectName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <p className="text-sm font-medium text-slate-500">
-                {visibleTasks.length} {visibleTasks.length === 1 ? "task" : "tasks"}
-              </p>
-            </div>
-          </div>
-          {visibleTasks.length > 0 ? (
-            <div className="grid gap-4 md:grid-cols-2">
-              {visibleTasks.map((task) => {
-                const statusStyles = {
-                  "To do": "bg-slate-100 text-slate-700",
-                  "In progress": "bg-indigo-50 text-indigo-700",
-                  Completed: "bg-emerald-50 text-emerald-700",
-                };
-
-                return (
-                  <article
-                    key={task.id}
-                    className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:p-6"
-                  >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-medium text-slate-500">{task.project}</p>
-                        <h3 className="mt-1 text-lg font-semibold tracking-tight">{task.title}</h3>
-                      </div>
-                      <span
-                        className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${statusStyles[task.status]}`}
-                      >
-                        {task.status}
-                      </span>
-                    </div>
-
-                    <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
-                      <p className="text-sm text-slate-600">
-                        Due{" "}
-                        <time dateTime={task.dueDate}>
-                          {Temporal.PlainDate.from(task.dueDate).toLocaleString("en", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
-                        </time>
-                      </p>
-                      <button
-                        type="button"
-                        className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                        onClick={() => toggleStatus(task.id)}
-                        aria-label={`Advance status for ${task.title}`}
-                      >
-                        Advance status
-                      </button>
-                      <button
-                        type="button"
-                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                        onClick={() => removeTask(task.id)}
-                        aria-label={`Remove ${task.title}`}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
-              <p className="font-medium text-slate-800">No tasks yet</p>
-              <p className="mt-1 text-sm text-slate-600">Add a task above to get started.</p>
-            </div>
-          )}
-        </section>
+        <TaskForm onAddTask={handleAddTask} />
+        <TaskList
+          visibleTasks={visibleTasks}
+          projectNames={projectNames}
+          selectedProject={selectedProject}
+          onProjectChange={setSelectedProject}
+          onToggleStatus={toggleStatus}
+          onRemoveTask={removeTask}
+        />
       </div>
     </main>
   );
