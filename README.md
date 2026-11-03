@@ -54,9 +54,9 @@ There is not yet a test runner or test script.
 The sample data includes two projects, and the controlled selector filters
 tasks by project. Its closed control, keyboard focus ring, popup, and selected
 option are styled, with customizable-select styling progressively enhanced
-where supported. Next, finish the picker interaction and responsive task-list
-layout, then add task descriptions and project assignment to task creation.
-The local
+where supported. The task toolbar adapts to narrow and wide layouts. Next, add
+task descriptions and project assignment to task creation, then continue
+collaborative visual polish. The local
 `QUESTBOARD.md` tracks the learner-led React and Tailwind lesson sequence.
 Later milestones include Supabase data and authentication, accessibility and
 focused tests, and deployment to a non-Vercel host.
