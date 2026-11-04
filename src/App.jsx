@@ -27,19 +27,21 @@ function App() {
   const [taskList, setTaskList] = useState(tasks);
   const [selectedProject, setSelectedProject] = useState("All projects");
   const completedCount = taskList.filter((task) => task.status === "Completed").length;
-  const projectNames = [...new Set(taskList.map((task) => task.project))];
+  const projectNames = [
+    ...new Set([...tasks.map((task) => task.project), ...taskList.map((task) => task.project)]),
+  ];
   const visibleTasks =
     selectedProject === "All projects"
       ? taskList
       : taskList.filter((task) => task.project === selectedProject);
 
-  function handleAddTask({ title, dueDate }) {
+  function handleAddTask({ title, dueDate, project }) {
     const newTask = {
       id: crypto.randomUUID(),
       title,
       description: "",
       dueDate,
-      project: "Questboard",
+      project,
       status: "To do",
     };
 
@@ -109,7 +111,7 @@ function App() {
           </article>
         </section>
 
-        <TaskForm onAddTask={handleAddTask} />
+        <TaskForm projectNames={projectNames} onAddTask={handleAddTask} />
         <TaskList
           visibleTasks={visibleTasks}
           projectNames={projectNames}

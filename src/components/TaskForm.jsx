@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-function TaskForm({ onAddTask }) {
+function TaskForm({ projectNames, onAddTask }) {
   const [newTitle, setNewTitle] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
+  const [selectedProject, setSelectedProject] = useState(projectNames[0] ?? "");
   const [formError, setFormError] = useState("");
 
   function handleSubmit(event) {
@@ -15,7 +16,7 @@ function TaskForm({ onAddTask }) {
     }
 
     setFormError("");
-    onAddTask({ title: trimmedTitle, dueDate: newDueDate });
+    onAddTask({ title: trimmedTitle, dueDate: newDueDate, project: selectedProject });
     setNewTitle("");
     setNewDueDate("");
   }
@@ -50,6 +51,25 @@ function TaskForm({ onAddTask }) {
               {formError}
             </p>
           )}
+        </div>
+
+        <div className="grid gap-1.5">
+          <label htmlFor="new-task-project" className="text-sm font-medium text-slate-700">
+            Project:
+          </label>
+          <select
+            id="new-task-project"
+            value={selectedProject}
+            onChange={(event) => setSelectedProject(event.target.value)}
+            className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+            required
+          >
+            {projectNames.map((projectName) => (
+              <option key={projectName} value={projectName}>
+                {projectName}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="grid gap-1.5">
