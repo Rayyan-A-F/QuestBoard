@@ -35,11 +35,11 @@ function App() {
       ? taskList
       : taskList.filter((task) => task.project === selectedProject);
 
-  function handleAddTask({ title, dueDate, project }) {
+  function handleAddTask({ title, description, dueDate, project }) {
     const newTask = {
       id: crypto.randomUUID(),
       title,
-      description: "",
+      description,
       dueDate,
       project,
       status: "To do",

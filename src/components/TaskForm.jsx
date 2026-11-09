@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function TaskForm({ projectNames, onAddTask }) {
   const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState("");
   const [selectedProject, setSelectedProject] = useState(projectNames[0] ?? "");
   const [formError, setFormError] = useState("");
@@ -16,8 +17,14 @@ function TaskForm({ projectNames, onAddTask }) {
     }
 
     setFormError("");
-    onAddTask({ title: trimmedTitle, dueDate: newDueDate, project: selectedProject });
+    onAddTask({
+      title: trimmedTitle,
+      description: newDescription.trim(),
+      dueDate: newDueDate,
+      project: selectedProject,
+    });
     setNewTitle("");
+    setNewDescription("");
     setNewDueDate("");
   }
 
@@ -51,6 +58,19 @@ function TaskForm({ projectNames, onAddTask }) {
               {formError}
             </p>
           )}
+        </div>
+
+        <div className="grid gap-1.5">
+          <label htmlFor="new-task-description" className="text-sm font-medium text-slate-700">
+            Description:
+          </label>
+          <textarea
+            id="new-task-description"
+            value={newDescription}
+            onChange={(event) => setNewDescription(event.target.value)}
+            className="w-full resize-y rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-100"
+            rows={3}
+          />
         </div>
 
         <div className="grid gap-1.5">
