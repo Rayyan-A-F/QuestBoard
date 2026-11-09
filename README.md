@@ -60,17 +60,3 @@ npm run format:check
 ```
 
 There is not yet a test runner or test script.
-
-## Next
-
-The sample data includes two projects, and the controlled selector filters
-tasks by project. Its closed control, keyboard focus ring, popup, and selected
-option are styled, with customizable-select styling progressively enhanced
-where supported. The task toolbar adapts to narrow and wide layouts. Sample
-cards display descriptions, and new tasks can be assigned to an existing
-project with an optional description. Next, continue collaborative visual
-polish. A future Questboard website addition may use Astro for a public-facing
-site; the app itself remains React/Vite for now. The local
-`QUESTBOARD.md` tracks the learner-led React and Tailwind lesson sequence.
-Later milestones include Supabase data and authentication, accessibility and
-focused tests, and deployment to a non-Vercel host.
