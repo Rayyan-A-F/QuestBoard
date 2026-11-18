@@ -1,5 +1,7 @@
 # Questboard
 
+## Scrap project, no longer in work
+
 Questboard is a small project-planning app built as a hands-on React learning
 project. It helps organize tasks and track progress.
 
